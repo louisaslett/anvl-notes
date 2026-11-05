@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+# Quarto intermediates (left behind only by an interrupted render)
+*.rmarkdown
+*_files/
+.quarto/
+_cache/
+_selftest/report.html

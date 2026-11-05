@@ -8,7 +8,7 @@
 ## random. One chunk = one (sign, exponent) pair = one binade = 2^20 samples.
 ## ---------------------------------------------------------------------------
 
-f64_sweep <- function(f, g) {
+f64_sweep <- function(f, g, out) {
   ## ---- config ----------------------------------------------------------------
   EXPS  <- 0:2047   # exponent fields to sweep (0 = subnormals, 2047 = Inf/NaN)
   CHUNK <- 2^20     # samples per call = one full binade; do not change
@@ -125,6 +125,7 @@ f64_sweep <- function(f, g) {
                blocks = hi - lo + 1)
   })
   
+  sink(out)
   cat(sprintf("sampled              : %.0f values\n", 2 * length(EXPS) * CHUNK))
   cat(sprintf("worst finite rel err : %.6g\n",
               if (nrow(worst)) worst$rel_err[1] else NA))
@@ -132,4 +133,5 @@ f64_sweep <- function(f, g) {
               sum(inf_ranges$blocks), nrow(inf_ranges)))
   print(worst, digits = 17)
   print(inf_ranges, digits = 17)
+  sink()
 }
